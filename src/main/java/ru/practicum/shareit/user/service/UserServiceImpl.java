@@ -16,7 +16,9 @@ import ru.practicum.shareit.user.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.practicum.shareit.user.mapper.UserMapper.*;
+import static ru.practicum.shareit.user.mapper.UserMapper.mapToUserNew;
+import static ru.practicum.shareit.user.mapper.UserMapper.updateUserFields;
+import static ru.practicum.shareit.user.mapper.UserMapper.mapToUserDto;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

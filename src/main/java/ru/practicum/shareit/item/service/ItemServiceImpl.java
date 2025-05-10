@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> findAllItemsOwner(Long userId) {
+    public List<ItemDto> findAllOwnerItems(Long userId) {
         userService.validateUserExist(userId);
 
         return itemRepository.findAllItemsOwner(userId).stream()
@@ -70,8 +70,7 @@ public class ItemServiceImpl implements ItemService {
                 .toList();
     }
 
-    @Override
-    public Item validateItemExist(Long itemId) {
+    private Item validateItemExist(Long itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException(String.format("Предмет аренды с id %d не найден.", itemId)));
     }

@@ -23,7 +23,7 @@ public class ItemRepositoryInMemoryImpl implements ItemRepository {
     public Item save(Item item) {
         item.setId(generateId());
         items.put(item.getId(), item);
-        return items.get(item.getId());
+        return item;
     }
 
     @Override
