@@ -24,7 +24,7 @@ public class ErrorHandler {
 
     @ExceptionHandler({InternalServerException.class, Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionResponse internalServerExceptionHandle(InternalServerException e) {
+    public ExceptionResponse internalServerExceptionHandle(Exception e) {
         return new ExceptionResponse("Ошибка сервера", e.getMessage());
     }
 
@@ -32,6 +32,12 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse validationExceptionHandle(Exception e) {
         return new ExceptionResponse("Ошибка валидации", e.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionResponse forbiddenExceptionHandle(Exception e) {
+        return new ExceptionResponse("Доступ запрещен", e.getMessage());
     }
 
     @Getter
