@@ -1,7 +1,7 @@
 package ru.practicum.shareit.exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice()
 public class ErrorHandler {
+    // Объявляем ExceptionResponse как статический внутренний класс
+    @Data // Lombok аннотация для геттеров, сеттеров, toString и т.д.
+    @AllArgsConstructor // Автоматически создаст конструктор со всеми полями
+    public static class ExceptionResponse {
+        private String error;
+        private String message;
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse methodArgumentValidationExceptionHandle(MethodArgumentNotValidException e) {
@@ -21,12 +29,5 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse internalServerExceptionHandle(Exception e) {
         return new ExceptionResponse("Ошибка сервера", e.getMessage());
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public static class ExceptionResponse {
-        String error;
-        String description;
     }
 }
